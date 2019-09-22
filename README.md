@@ -1,4 +1,4 @@
-# welunch
+# WeLunch [A Tomorrow's Modern Lunches Experience]
 
 Welcome to WeLunch, a new social experience from Yelp and Tomorrow's Modern Lunches Co.
 
