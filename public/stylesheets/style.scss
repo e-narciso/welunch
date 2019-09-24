@@ -1,8 +1,27 @@
 body {
-  padding: 50px;
+  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 a {
   color: #00B7FF;
+}
+
+.jumbotron {
+   vertical-align: middle;
+   height: 100vh;
+   padding-top: 50%;
+}
+
+footer{
+  background-color: #343A40;
+  height: 50px;
+}
+
+footer .col{
+  margin-top: 15px;
+  color: white;
 }

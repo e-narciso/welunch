@@ -9,14 +9,14 @@ router.get("/signup", (req, res, next) => {
 });
 
 router.post("/signup", (req, res, next) => {
-  let adminPrivilege = false;
+  // let adminPrivilege = false;
 
-  if (req.user) {
-    // check if someone is logged in
-    if (req.user.isAdmin) {
-      adminPrivilege = req.body.role ? req.body.role : false;
-    }
-  }
+  // if (req.user) {
+  //   // check if someone is logged in
+  //   if (req.user.isAdmin) {
+  //     adminPrivilege = req.body.role ? req.body.role : false;
+  //   }
+  // }
 
   const username = req.body.theUsername;
   const password = req.body.thePassword;
@@ -27,10 +27,9 @@ router.post("/signup", (req, res, next) => {
   User.create({
     username: username,
     password: hash,
-    isAdmin: adminPrivilege
   })
     .then(() => {
-      res.redirect("/");
+      res.redirect("/login");
     })
     .catch(err => {
       next(err);
@@ -44,12 +43,16 @@ router.get("/login", (req, res, next) => {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "/dashboard",
     failureRedirect: "/login",
     failureFlash: true,
     passReqToCallback: true
   })
 );
+
+router.get("/dashboard", (req, res, next) => {
+  res.render("user-views/dashboard");
+})
 
 router.post("/logout", (req, res, next) => {
   req.logout();
@@ -137,22 +140,22 @@ router.post("/account/delete-my-account", (req, res, next) => {
     });
 });
 
-router.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: [
-      "https://www.googleapis.com/auth/userinfo.profile",
-      "https://www.googleapis.com/auth/userinfo.email"
-    ]
-  })
-);
+// router.get(
+//   "/auth/google",
+//   passport.authenticate("google", {
+//     scope: [
+//       "https://www.googleapis.com/auth/userinfo.profile",
+//       "https://www.googleapis.com/auth/userinfo.email"
+//     ]
+//   })
+// );
 
-router.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    successRedirect: "/",
-    failureRedirect: "/" // here you would redirect to the login page using traditional login approach
-  })
-);
+// router.get(
+//   "/auth/google/callback",
+//   passport.authenticate("google", {
+//     successRedirect: "/",
+//     failureRedirect: "/" // here you would redirect to the login page using traditional login approach
+//   })
+// );
 
 module.exports = router;

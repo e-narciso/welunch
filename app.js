@@ -15,7 +15,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/User");
 const bcrypt = require("bcryptjs");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
+// const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 mongoose
   .connect("mongodb://localhost/welunch", { useNewUrlParser: true })
@@ -96,43 +96,43 @@ passport.use(
   })
 );
 
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: "/auth/google/callback"
-    },
-    (accessToken, refreshToken, profile, done) => {
-      // to see the structure of the data in received response:
-      console.log("Google account details:", profile);
+// passport.use(
+//   new GoogleStrategy(
+//     {
+//       clientID: process.env.GOOGLE_ID,
+//       clientSecret: process.env.GOOGLE_SECRET,
+//       callbackURL: "/auth/google/callback"
+//     },
+//     (accessToken, refreshToken, profile, done) => {
+//       // to see the structure of the data in received response:
+//       console.log("Google account details:", profile);
 
-      User.findOne({ googleID: profile.id })
-        .then(user => {
-          if (user) {
-            done(null, user);
-            return;
-          }
+//       User.findOne({ googleID: profile.id })
+//         .then(user => {
+//           if (user) {
+//             done(null, user);
+//             return;
+//           }
 
-          let theImage = "";
-          if (profile.photos) {
-            theImage = profile._json.picture;
-          }
-          User.create({
-            username: profile._json.name,
-            googleID: profile.id,
-            isAdmin: false,
-            image: theImage
-          })
-            .then(newUser => {
-              done(null, newUser);
-            })
-            .catch(err => done(err)); // closes User.create()
-        })
-        .catch(err => done(err)); // closes User.findOne()
-    }
-  )
-);
+//           let theImage = "";
+//           if (profile.photos) {
+//             theImage = profile._json.picture;
+//           }
+//           User.create({
+//             username: profile._json.name,
+//             googleID: profile.id,
+//             isAdmin: false,
+//             image: theImage
+//           })
+//             .then(newUser => {
+//               done(null, newUser);
+//             })
+//             .catch(err => done(err)); // closes User.create()
+//         })
+//         .catch(err => done(err)); // closes User.findOne()
+//     }
+//   )
+// );
 
 app.use(passport.initialize());
 app.use(passport.session());
