@@ -11,7 +11,11 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"
+      integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs="
+      crossorigin="anonymous"
+    ></script>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -30,27 +34,33 @@
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-<nav class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand mx-auto" href="#">WeLunch</a>
-</nav>
+    <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand mx-auto" href="#">WeLunch</a>
+    </nav>
 
     {{{body}}}
-    
+
     <footer class="fixed-bottom">
       <div class="row text-center">
+        {{#if theUser}}
         <div class="col">
-          home
+          <a href="/dashboard">home</a>
         </div>
-                <div class="col">
-          new
+        <div class="col">
+          <a href="/add-new">new</a>
         </div>
-                <div class="col">
-          profile
-        </div>
+        <div class="col dropup">
+ <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">profile</a>
+  <div class="dropdown-menu">
+    <a href="/account">account settings</a><br>
+    <a href="/profile">my profile</a><br>
+    <a href="/likes">my likes</a><br>
+  </div>
+</div>
+        {{/if}}
       </div>
     </footer>
-    
-    <script src="/javascripts/script.js"></script>
 
+    <script src="/javascripts/script.js"></script>
   </body>
 </html>

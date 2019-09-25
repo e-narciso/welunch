@@ -1,0 +1,28 @@
+<h1>{{user.username}}'s liked posts</h1>
+
+<div class="posts">
+  {{#each posts}}
+        <div class="post">
+      <div class="post-head">
+        <div class="row space-between">
+        <img class="col" src="{{this.creator.profileImage}}" alt="">
+        <p class="col">{{this.date}}</p>
+        </div>
+      </div>
+      <div class="post-content">
+        <img src="{{this.image}}" alt="">
+        <p>{{this.caption}}</p>
+      </div>
+      <div class="post-comments">
+        {{#each this.comments}}
+          <div>
+            <div class="row">
+              <img class="col" src="{{this.creator.profileImage}}" alt="">
+              <p class="col">{{this.content}}</p>;
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  {{/each}}
+</div>

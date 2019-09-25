@@ -140,6 +140,13 @@ app.use(passport.session());
 // default value for title local
 app.locals.title = "Express - Generated with IronGenerator";
 
+app.use((req, res, next) => {
+  res.locals.theUser = req.user;
+  res.locals.errorMessage = req.flash("error");
+  res.locals.successMessage = req.flash("success");
+  next();
+});
+
 const index = require("./routes/index");
 app.use("/", index);
 

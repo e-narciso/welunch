@@ -3,12 +3,14 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   username: {type: String},
+  email: {type: String},
   password: {type: String},
-  // isAdmin: { type: Boolean },
-  // role: { type: String, enum: [ "regular", "employee", "admin" ] }
-  // this would be the method for more than two roles
-  // googleID: { type: String },
   profileImage: { type: String },
+  status: { type: String,
+    enum : ["Pending Confirmation", "Active"],
+    default: "Pending Confirmation"
+},
+  confirmationCode: { type: String },
   followers: [{type: Schema.Types.ObjectId, ref: 'User'}],
 });
 

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const Post = require("../models/Post");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
@@ -72,7 +73,7 @@ router.get("/account", (req, res, next) => {
     req.flash("error", "Please login to your account");
     res.redirect("/login");
   }
-  res.render("user-views/settings");
+  res.render("user-views/account-settings");
 });
 
 router.post("/account/google-update", (req, res, next) => {
@@ -115,11 +116,11 @@ router.post("/account/update", (req, res, next) => {
       User.findByIdAndUpdate(id, {
         username: req.body.theUsername,
         password: theActualPassword,
-        image: req.body.theImage
+        profileImage: req.body.theImage
       })
         .then(result => {
           req.flash("success", "Your settings have been saved");
-          res.redirect("/account-settings");
+          res.redirect("/profile");
         })
         .catch(err => {
           next(err);
@@ -130,7 +131,7 @@ router.post("/account/update", (req, res, next) => {
     });
 });
 
-router.post("/account/delete-my-account", (req, res, next) => {
+router.post("/delete", (req, res, next) => {
   User.findByIdAndRemove(req.user._id)
     .then(() => {
       res.redirect("/");
@@ -139,6 +140,10 @@ router.post("/account/delete-my-account", (req, res, next) => {
       next(err);
     });
 });
+
+router.get("/add-new", (req, res, next) => {
+  res.redirect("user-views/new");
+})
 
 // router.get(
 //   "/auth/google",
